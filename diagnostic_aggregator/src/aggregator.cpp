@@ -217,8 +217,12 @@ void Aggregator::publishData()
   {
     diag_array.status.push_back(*processed[i]);
 
-    if (processed[i]->level > diag_toplevel_state.level)
+    if (processed[i]->level > diag_toplevel_state.level) {
+      diag_toplevel_state.message = processed[i]->message;
+      diag_toplevel_state.hardware_id = processed[i]->hardware_id;
+      diag_toplevel_state.values = processed[i]->values;
       diag_toplevel_state.level = processed[i]->level;
+    }
     if (processed[i]->level < min_level)
       min_level = processed[i]->level;
   }
@@ -228,8 +232,12 @@ void Aggregator::publishData()
   {
     diag_array.status.push_back(*processed_other[i]);
 
-    if (processed_other[i]->level > diag_toplevel_state.level)
+    if (processed_other[i]->level > diag_toplevel_state.level) {
+      diag_toplevel_state.message = processed_other[i]->message;
+      diag_toplevel_state.hardware_id = processed_other[i]->hardware_id;
+      diag_toplevel_state.values = processed_other[i]->values;
       diag_toplevel_state.level = processed_other[i]->level;
+    }
     if (processed_other[i]->level < min_level)
       min_level = processed_other[i]->level;
   }
